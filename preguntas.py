@@ -11,7 +11,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+import csv
 
 def pregunta_01():
     """
@@ -21,8 +21,17 @@ def pregunta_01():
     214
 
     """
-    return
+    suma = 0
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            suma += int(row[1])
 
+    return suma
+
+print(pregunta_01())
+
+from itertools import groupby
 
 def pregunta_02():
     """
@@ -39,8 +48,23 @@ def pregunta_02():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append((row[0],1))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = sum(x[1] for x in g)
+        new_sequence.append((key,values))
+    return new_sequence
 
+print(pregunta_02())
 
 def pregunta_03():
     """
@@ -57,7 +81,23 @@ def pregunta_03():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append((row[0],row[1]))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = sum(int(x[1]) for x in g)
+        new_sequence.append((key,values))
+    return new_sequence
+
+print(pregunta_03())
 
 
 def pregunta_04():
@@ -82,8 +122,24 @@ def pregunta_04():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append(((row[2].split("-")[1]),1))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = sum(x[1] for x in g)
+        new_sequence.append((key,values))
 
+    return new_sequence
+
+print (pregunta_04())
 
 def pregunta_05():
     """
@@ -100,7 +156,23 @@ def pregunta_05():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append((row[0],row[1]))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = list(int(x[1]) for x in g)
+        new_sequence.append((key,max(values),min(values)))
+    return new_sequence
+
+print (pregunta_05())
 
 
 def pregunta_06():
@@ -125,7 +197,25 @@ def pregunta_06():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            h=row[4].split(",")
+            for raw in h:
+                sequence.append((raw.split(":")))                           
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = list(int(x[1]) for x in g)
+        new_sequence.append((key,min(values),max(values)))
+    return new_sequence
+
+print(pregunta_06())
 
 
 def pregunta_07():
@@ -149,8 +239,23 @@ def pregunta_07():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append((row[1],row[0]))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = list(x[1] for x in g)
+        new_sequence.append((int(key),values))
+    return new_sequence
 
+print(pregunta_07())
 
 def pregunta_08():
     """
@@ -174,8 +279,24 @@ def pregunta_08():
     ]
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append((row[1],row[0]))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence=[]
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = list(x[1] for x in g)
+        new_sequence.append((int(key),sorted(list(set(values)))))
 
+    return new_sequence
+
+print(pregunta_08())
 
 def pregunta_09():
     """
@@ -197,8 +318,25 @@ def pregunta_09():
     }
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            h=row[4].split(",")
+            for raw in h:
+                sequence.append(((raw.split(":")[0]),1))                           
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence={}
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = sum(x[1] for x in g)
+        new_sequence[key] = values
+    return new_sequence
 
+print(pregunta_09())
 
 def pregunta_10():
     """
@@ -218,7 +356,14 @@ def pregunta_10():
 
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            sequence.append((row[0],len(row[3].split(",")),len(row[4].split(","))))
+    return sequence
+
+print (pregunta_10())
 
 
 def pregunta_11():
@@ -239,7 +384,25 @@ def pregunta_11():
 
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            rew=row[3].split(",")
+            for raw in rew:
+                sequence.append((raw,row[1]))
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence={}
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = sum(int(x[1]) for x in g)
+        new_sequence[key] = values
+    return new_sequence
+
+print (pregunta_11())
 
 
 def pregunta_12():
@@ -257,4 +420,22 @@ def pregunta_12():
     }
 
     """
-    return
+    sequence = []
+    with open('data.csv', newline='') as data:
+        reader = csv.reader(data,delimiter="\t")
+        for row in reader:
+            h=row[4].split(",")
+            for raw in h:
+                sequence.append((row[0],(raw.split(":")[1])))                           
+    sequence = sorted(
+        sequence,
+        key=lambda x: x[0]
+    )
+    new_sequence={}
+    for k, g in groupby(sequence, lambda x: x[0]):
+        key = k
+        values = sum(int(x[1]) for x in g)
+        new_sequence[key] = values
+    return new_sequence
+
+print(pregunta_12())
